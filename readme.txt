@@ -1,4 +1,4 @@
-Light is the name of the CMS created by Marc Laurent Harnist in 2017 with MVC, OOP, mySQL, html5, CSS3.
+Notebook is a website made with Light. Light is the name of the CMS created by Marc Laurent Harnist in 2017 with MVC, OOP, mySQL, html5, CSS3.
 Marc Harnist
 21/01/2018 
 
