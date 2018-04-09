@@ -21,7 +21,7 @@
 			$db_host = 'marcharnssmarc.mysql.db';
 			$db_name   = 'marcharnssmarc';
 			$db_username = 'marcharnssmarc';
-			$db_password = 'Bumiere753';
+			$db_password = '***';
 		}
 		else{ // We are on localhost on PC
 			$website_url = str_replace('index.php', '', $_SERVER['SCRIPT_NAME']);//easyPhp url
