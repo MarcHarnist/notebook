@@ -1,0 +1,16 @@
+* { font-weight:normal; font-size:20px;}
+
+section {  
+    border-radius: 15px 50px 30px 5px;
+    background:RGB(199,192,179);
+    padding: 15px 0; 
+	margin:20px 0px 0px 0px;
+    width: 1000px;
+ }  
+
+h3 { background:RGB(219,211,197); margin:8px; padding:18px;}
+	.h3_first { border-radius:0 25px 0 0;}
+	
+input, textarea { background-color:darksalmon;margin:0 auto;color:white;}
+
+textarea { border-width: 2px; border-style: inset; border-color: initial; border-image: initial;}
