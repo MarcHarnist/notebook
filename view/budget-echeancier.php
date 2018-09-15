@@ -13,7 +13,7 @@
 
 <table class="table table-striped">
 	<tr>
-		<th>Priorité</th><th>Jour</th><th>Acteur</th><th>Poste</th><th>Entrée</th><th>Sortie</th><th>Cumul</th>
+		<th>Priorité</th><th>Jour</th><th>Acteur</th><th>Poste</th><th class="text-right">Entrée</th><th class="text-right">Sortie</th><th class="text-right">Cumul</th>
 	</tr>
 	<?php
 	// On met à zéro la calculatrice
@@ -96,23 +96,16 @@
 					$Carburant = - $affiche_mois;
 				?>
 			</td>
-			<td><!-- entrée -->
-			    <?php if($affiche_mois > 0){echo $affiche_mois; $total_entrees += $affiche_mois;} ?>
-				</td>
-			<td><!-- sortie -->
-			    <?php if($affiche_mois <= 0) { echo $affiche_mois; $total_sorties += $affiche_mois;}?>
-				</td>
+			<!-- entrée -->
+			<td class="text-right"><?php if($affiche_mois > 0){
+		      echo $affiche_mois; $total_entrees += $affiche_mois;echo " €";}?></td>
+
+            <!-- sortie -->
+			<td class="text-right"><?php if($affiche_mois <= 0){
+			echo $affiche_mois; $total_sorties += $affiche_mois;echo " €";}?></td>
 				
-				<!-- cumul -->
-			<td class="<?php if($day >= date('d')) echo 'text-danger';?>">
-			    <?php 	echo $total_mois . "  €";
-						
-						// Premier passage $compteur_solde_du_jour_connu = 1
-						if($compteur_solde_du_jour_connu < 1 && $day < date('d'))
-							$solde_theorique_du_jour = $total_mois;
-							$compteur_solde_du_jour_connu--;
-				?>
-				</td>
+			<!-- cumul -->
+			<td class="<?php if($day >= date('d')) echo 'text-danger';?> text-right"><?=$total_mois?>  €</td>
 		</form>
 		</tr>
 		<?php 

@@ -4,12 +4,7 @@
   </header>
     <fieldset class = "fieldset_profil">
       <legend><?= $name;?></legend>
-      <?php 
-      /**                              NEWS SUR LES TRAVAUX EN COURS
-      * Trois données à envoyer à la classe Website: "titre", "contenu du message", "couleur de fond - css"
-      */
-      // echo $website->message("Travaux en cours", "Rangement du code de la classe Database", "lightgreen");
-      ?>
+		  <?php echo $website->message("Travaux en cours", "Rangement du code de la classe Database", "lightgreen");?>
       <p>Vous êtes connecté. Votre niveau: <?=$level;?></p>
       <?php
       if(isset($member) && $member->level <= 2){

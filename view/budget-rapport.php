@@ -1,46 +1,19 @@
-<!--               budget-echeancier.php
+<!--               Vue budget-rapport.php
 
     Isa voudrait un mail non pas quotidien mais uniquement lorsque quelque chose s'est passé sur le compte (entrée ou sortie) qui dise: il te reste tant pour shopping...
-
 	Path: view/budget-echeancier.php  Marc L. Harnist 2017
 -->
 <article>
   <header class="row bg-light p-3 ">
-    <h2 class="row ml-0 text-muted">RAPPORT SUR LE BUDGET</h2>
+    <h2 class="row ml-0 text-muted">RAPPORT SUR LE BUDGET...</h2>
   </header>   
 	<section class="row">
 		<?php include "inc/budget-menu.php";?>
-		<div class="col-lg-5">
-			<table class="table table-striped">
-				<tr><th colspan="2">DONNES DU PANORAMA</th>
-				<tr><td class="left">Id</td><td> <?= $panorama_last_entry->id;?></td>
-				</tr>
-				<tr><td class="left">Date</td><td> <?=$panorama_last_entry->date;?></td>
-				</tr>
-				<tr><td class="left">Liquidité</td><td> <?=$cheques->separateur($panorama_last_entry->liquidite);?> €</td>
-				</tr>
-				<tr><td class="left">A venir</td><td> <?=$cheques->separateur($panorama_last_entry->avenir);?> €</td>
-				</tr>
-				<tr><td class="left">Prévisionnel </td><td> <?=$cheques->separateur($panorama_last_entry->previsionnel);?> €</td>
-				</tr>
-				<tr><td class="left">Epargne</td><td> <?=$cheques->separateur($panorama_last_entry->epargne);?> €</td>
-				</tr>
-				<tr><td class="left">Solde</td><td> <?=$cheques->separateur($panorama_last_entry->solde);?> €</td>
-				</tr>
-				<tr><td class="left">Crédit </td><td> <?=$cheques->separateur($panorama_last_entry->credit);?> €</td>
-				</tr>
-				<tr><td class="left">Solde général</td><td> <?=$cheques->separateur($panorama_last_entry->solde_general);?> €</td>
-				</tr>
-			</table>
-		</div>
-
-
 		<!-- Avertissement: attention, separateur() (methode de Methods
 			 transforme int en string.
 			 A utiliser uniquement pour l'affichage final dans la vue et une
 			 seule fois sur le même nombre, sinon il y aura un bug -->
-			 
-		<div class="col-lg-5">
+	    <div class="col-lg-5">
 			<table  id="bilan" class="table table-striped">
 				<tr><th colspan="2">CALCULS</th>
 				<tr>
@@ -74,6 +47,8 @@
 				<tr><td class="left">Solde réel (<?=$cheques->separateur($panorama_last_entry->liquidite);?> €) - <a href="<?= $website->page_url;?>budget-cheques">chèques</a> à venir (<?php if($montant_des_cheques_a_venir > 0 ) echo "<span class = \"warning\">"; echo $cheques->separateur($montant_des_cheques_a_venir);?> € </span>)</td>
 					<td><?=$cheques->separateur($panorama_last_entry->liquidite-$montant_des_cheques_a_venir);?> €</td>
 				</tr>
+				
+				<!--  ########### Solde prévu par l'échéancier à cette date ########## -->
 				<tr><td class="left">Solde prévu par <a href="<?= $website->page_url;?>budget-echeancier">l'échéancier</a> à cette date</td>
 					<td><?=$cheques->separateur($solde_theorique_du_jour);?> €</td>
 				</tr>
@@ -92,6 +67,32 @@
 				</tr>
 			</table>
 		</div>
+		<div class="col-lg-5">
+			<table class="table table-striped">
+				<tr><th colspan="2">DONNES DU PANORAMA</th>
+				<tr><td class="left">Id</td><td> <?= $panorama_last_entry->id;?></td>
+				</tr>
+				<tr><td class="left">Date</td><td> <?=$panorama_last_entry->date;?></td>
+				</tr>
+				<tr><td class="left">Liquidité</td><td> <?=$cheques->separateur($panorama_last_entry->liquidite);?> €</td>
+				</tr>
+				<tr><td class="left">A venir</td><td> <?=$cheques->separateur($panorama_last_entry->avenir);?> €</td>
+				</tr>
+				<tr><td class="left">Prévisionnel </td><td> <?=$cheques->separateur($panorama_last_entry->previsionnel);?> €</td>
+				</tr>
+				<tr><td class="left">Epargne</td><td> <?=$cheques->separateur($panorama_last_entry->epargne);?> €</td>
+				</tr>
+				<tr><td class="left">Solde</td><td> <?=$cheques->separateur($panorama_last_entry->solde);?> €</td>
+				</tr>
+				<tr><td class="left">Crédit </td><td> <?=$cheques->separateur($panorama_last_entry->credit);?> €</td>
+				</tr>
+				<tr><td class="left">Solde général</td><td> <?=$cheques->separateur($panorama_last_entry->solde_general);?> €</td>
+				</tr>
+			</table>
+		</div>
+
+
+
 	</section>
 	<?php
 		if($ecart > 0)
@@ -122,7 +123,7 @@
 		<td><?=round($budget_courses_alimentaires_restant,0);?> €</td>
 		<td><?=round($ecart,0);?> €</td>
 		<td><?=round($budget_courses_alimentaires_restant + $ecart,0);?> €</td>
-		<td><?=round(($budget_courses_alimentaires_restant + $ecart)/$nombre_de_jours_restant_jusqu_a_la_fin_du_mois,0);?> €</td>
+		<td><?php if($nombre_de_jours_restant_jusqu_a_la_fin_du_mois > 0) echo round(($budget_courses_alimentaires_restant + $ecart)/$nombre_de_jours_restant_jusqu_a_la_fin_du_mois,0); else echo round($budget_courses_alimentaires_restant + $ecart);?> €</td>
 	</tr>
 	<tr><td class="left">Carburant</td>
 		<td><?=$carburant;?> €</td>
@@ -161,15 +162,6 @@
 		<td><strong><?=round($total_restant + $ecart,0);?> €</strong></td>
 	</tr>
 	</table>
-	<p>En comptant les écarts, il reste <strong><?=round(($total_restant + $ecart),0)?> €</strong> pour toutes les courses et le carburant jusqu'à la fin de ce mois-ci détaillés  comme suit:</p>
-	<ul><li>Alimentation uniquement: il reste <?=round($budget_courses_alimentaires_restant + $ecart,0);?> € soit <?=round(($budget_courses_alimentaires_restant + $ecart)/$nombre_de_jours_restant_jusqu_a_la_fin_du_mois,0);?> € par jour jusqu'à la fin du mois.</li>
-	<li>Carburant:  il reste <?=round($carburant_restant,0);?> € soit <?=round(($carburant_restant)/$nombre_de_jours_restant_jusqu_a_la_fin_du_mois,0);?> € par jour jusqu'à la fin du mois.</li>
-	<li>pour shopping Web <?=round(($shopping_web_restant),0)?> €</li>
-	<li>pour Noz <?=round(($Noz_restant),0)?> €</li>
-	<li>Total jusqu'à la fin du mois pour toutes les courses: <?=round(($total_restant + $ecart),0) . " €, soit " . round(((($total_restant + $ecart)/$nombre_de_jours_restant_jusqu_a_la_fin_du_mois))*7,0) . " € par semaine ou " . round((($total_restant + $ecart)/$nombre_de_jours_restant_jusqu_a_la_fin_du_mois),0) . " € par jour.";?></li>
-	</ul>
-
-
 	<div style = "width:600px;border:2px solid lightgrey; margin:20px 20px 50px 20px; padding:20px;">
 	<?php
 
