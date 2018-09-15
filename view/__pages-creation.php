@@ -4,14 +4,14 @@
 	</header>	
 	<!-- CREATION NEW New in data base. All script by Marc Harnist -->
 
-	<form class = "row p-3 bg-secondary m-3 rounded" method="post" action="<?=PAGE_URL;?>__pages-update">
+	<form class = "row p-3 bg-secondary m-3 rounded" method="post" action="<?= $website->page_url;?>__pages-save">
 		<!--Form id deleted because 2 ids not valid html5 --> 
 		
 		<div class="col-lg-3">
 		  <label for="date" class="text-white">Date</label><input type="text" class="form-control" name="date" value="<?=$date_default;?>" id="date">
 		</div>
 		<div class="col-lg-9">
-		  <label for="auteur" class="text-white">Auteur</label><input type="text" class="form-control" name="auteur" value="<?=WEBSITE_OWNER;?>" id="auteur">
+		  <label for="author" class="text-white">Auteur</label><input type="text" class="form-control" name="author" value="<?=$website::OWNER;?>" id="author">
 		</div>
 	    <div class="col-lg-12 pt-3">
 			<label for="titre" class="text-white">Titre</label>
@@ -44,8 +44,9 @@
 		<div class="col-lg-12 pt-3">
 			<label for="texte" class="text-white">Votre texte</label><br>
 			<i><small></small></i>	
-			<textarea class="form-control" rows="10" name="text" id="texte" placeholder="Pour insérer une image, il vous faut d'abord enregistrer votre travail et charger l'image depuis la page d'édition des pages."></textarea>
+			<textarea class="form-control" rows="10" name="text" id="texte" placeholder="Pour insérer une image, un lien, changer le texte en gras, en petit, en plus grand: il vous faut d'abord enregistrer votre travail et charger l'image depuis la page d'édition des pages ou modifier votre texte grâce au bb-code de la page édition."></textarea>
 			<input type="hidden" name="operation" value="creation"><br>
+			<input type="hidden" name="last_id" value="<?=$last_id;?>"><br>
 			<input class="form-control w-25" type="submit" value="Enregistrer">
 		</div>
 	</form>

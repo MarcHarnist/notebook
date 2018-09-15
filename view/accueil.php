@@ -1,53 +1,68 @@
-	<article>
-		<header class="row bg-light p-3">
-			<h2 class="row ml-0 text-muted">Accueil</h2>
-		</header>	
+<article>
+	<header class="bg-light p-3">
+		<h2 class="row text-muted">Accueil</h2>
+		<h3 class="h4 text-muted ml-3">Bienvenue sur <?=$website::NAME;?></h3>
+	</header>	
+		
+	<div class="col-sm-12">
+		<h3 class="row h4 text-muted">Dernières nouvelles</h3>
+		
+		<?php
+		// Display the N° (id), the title, the author and the date of the new choosen in a link to this new.
+			?>
+			<h4 class="h5 text-muted"><a href="<?= $website->page_url . 'page-from-pages-index&id='. $page_en_cours_de_lecture['id'] . '&titre=' . $page_en_cours_de_lecture['url'];?>"><?=$page_en_cours_de_lecture['title'];?></a></h4>
 			
-		<div class="col-sm-12">
+			<p>
+				<small>
+					<em>
+						<?php
+						if(isset($member) && $member->level <= 2){
+						
+							// The user has enough permissions, display the edition-link
+							// Le menu d'édition, de création de pages ou de suppression
+							include('view/__menu-edition.php');
+						}
+						?>
+						Le <?=$page_en_cours_de_lecture['date'];?>
+					</em> <?php if($page_en_cours_de_lecture['author'] != "") echo "Auteur: " . $page_en_cours_de_lecture['author'];?>
+				</small>
+			</p>		
 
-			<h3 class="h4">Bienvenue sur <?=WEBSITE_NAME;?>
-
-			<h4 class="h5"><?=$page['title'];?></h4>
-			<p>Date: <?=$page['date']; if($page['author'] != "") echo " - Auteur: " . $page['author'];?><br>
-			<?=$page['text']; ?>
-			<!-- Warning! install no space or tab in the link below.It create an w3c error -->
-			<?php if($link == True) echo '
-			<a href="' . PAGE_URL . 'page-from-pages-index&amp;id='. $page['id'] . '&amp;titre=' . $page['url']. '">
+			<?=$page_en_cours_de_lecture['texte_entier']; // 10 000 000 chars = texte en entier. 
+			// On pourrait utiliser aussi: $page_en_cours_de_lecture['texte_entier'];?>
+			
+			<!-- Warning! install no space or tab in the link below. It creates an w3c error -->
+			
+			<?php
+				if($page_en_cours_de_lecture['link'] == True) echo '
+			<a href="' . $website->page_url . 'page-from-pages-index&id='. $page_en_cours_de_lecture['id'] . '&titre=' . $page_en_cours_de_lecture['url']. '">
 			Lire la suite
 			</a>';
 			?>
 			<br />
 			<?php
-			if ($level <= 2){
+			if(isset($member) && $member->level <= 2){
 				// The visitor has enough permissions, display the edition-link
-			include_once(VIEW.'__menu-edition.php');
+			include_once('view/__menu-edition.php');
 			}
-			?>
-			</p>
-		</div>
-	</article>
+		?>
+		
+	</div>
+</article>
 
-	<article class="col-sm p-3 pt-5">
-		<h3 class="row">Contactez-moi!</h3>
-		<div class="col-sm-12">
-			<form action="<?=PAGE_URL . 'contact_verif';?>" method="post">
-			  <div class="form-group">
-				<label for="email">Email address *</label>
-				<input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Entrez votre email" required>
-				<small id="emailHelp" class="form-text text-muted">Nous ne communiquerons jamais votre mail à quelqu'un d'autre.</small>
-			  </div>
-			  <div class="form-group">
-				<label for="message">Votre message *</label>
-					<textarea name="message" class="form-control" id="message" rows="5" cols="30" placeholder="Votre message"></textarea>
-			  </div>
-			  <div class="form-group">
-				<label for="capcha">Je ne suis pas un robot : </label>
-					<?php $capcha = rand(1,5); 
-					echo ' ' . $capcha;?> + 1 = <input class="rounded" id="capcha" name="capcha_reponse" size="3" />
-					<input type="hidden" name="capcha" value="<?php $capcha++;
-					echo $capcha;?>" />
-			  </div>
-			  <button type="submit" class="btn btn-dark">Envoyer</button>
-			</form>
-		</div>
-	</article>
+<article class="col-sm p-3 pt-3">
+	<h4 class="row text-muted">Catégories</h4>
+	<div class="col-sm-12">
+		<ul>
+						<?php
+			foreach($categories as $categorie){
+						?>
+					<li>
+						<a href="<?= $website->page_url;?>pages-index&categorie=<?=$categorie;?>"><?=ucfirst($categorie);?></a>
+					</li>
+						<?php
+			}
+						?>
+		</ul>
+	</div>
+</article>

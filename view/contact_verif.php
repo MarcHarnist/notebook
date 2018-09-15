@@ -7,7 +7,7 @@ if (!$erreur) {
 			Votre message a bien été envoyé, je vous répondrai dans les meilleurs délais.
 		</p>
 		<p class ="p_pinkButton">
-			<a class = "BigPinkButton" href = "<?=PAGE_URL . 'accueil';?>">
+			<a class = "BigPinkButton" href = "<?= $website->page_url . 'accueil';?>">
 			Retourner à l'accueil
 			</a>	
 		</p>
