@@ -1,20 +1,12 @@
 <?php
 
-//  SYSTEME DE NEWS	 13/08/2017 Marc L. Harnist
-	$today = date("d/m/Y"); 
-	$date_default = $today;
+/**  SYSTEME DE NEWS	 13/08/2017 Marc L. Harnist devient POO   le 18/07/2018
+*
+*  This page reserved for level 1 & 2 users
+*/ $website->membersPermissions(2, $member);
 
-	include_once USER2; // This page reserved for level 1 & 2 users
+$date_default = date("d/m/Y"); 
 	
-	
-/**   On se connecte à la base de donnée grâce à la classe root/class/ReadDatabasePages qui 
-/*    elle-même utilise la classe mère Database pour récupérer les identifiants de connexion
-/*    On récupère toutes les donnés de la table "light_pages" et on les place dans un array $lire
-*/
-$lire = new DatabaseRead;	// Traduction: DatabaseReadPges = BaseDeDonnéeLirePages
-$lire = $lire->read_database();
-
-$liste=[];
-foreach($lire as $categorie){$liste[] = $categorie['category'];}            
-
-$categories = array_unique($liste); // array_unique supprime les doublons dans un array!
+$read = new Database;	// POO! $lire = array() qui contient toute la table des pages
+	$categories = $read->list_categories(); // Méthode qui liste les catégories existantes dans les pages
+	$last_id = $read->last_id(); // Last id create - dernier id créé toutes catégories confondues pour redirection finale

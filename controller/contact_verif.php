@@ -11,17 +11,19 @@ $erreur = false;
 
 // Email du destinataire 
 // $destinataire = "harnist.marc@gmail.com"; // for tests 
-$destinataire = OWNER_MAIL; // $mail_du_site in config.php
-$objet = 'Mail du site web ' . WEBSITE_NAME;
+$destinataire = $website::OWNER_MAIL; // $mail_du_site in config.php
+$objet = 'Mail du site web ' . $website::NAME;
 
 // Récupération
 $email = htmlspecialchars($_POST['email']);
 $message = htmlspecialchars($_POST['message']);
 $capcha = htmlspecialchars($_POST['capcha']);
 $capcha_reponse = $_POST['capcha_reponse'];
-$header = "From: " . $_POST['email'];
+$header = "Content-Type: text/html; charset=UTF-8; ";
+$header .= "\nFrom: " . $_POST['email'];
 
 
+  
 // Vérifications
 
 // Vérification du mail 

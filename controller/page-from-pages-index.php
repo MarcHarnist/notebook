@@ -1,22 +1,19 @@
 <?php
-include_once('model/get-one-page.php');
 
-// On effectue du traitement sur les données (contrôleur)
-// Ici, on doit surtout sécuriser l'affichage
-foreach($pages as $page)
-{
-    $page['title'] = htmlspecialchars($page['title']);
-    $page['text'] = nl2br($page['text']);
-    $page['date'] = date(('d/m/Y'),($page['date']));
+
+
+if(isset($_GET['id']) && !empty($_GET['id'])){
+    //Get['id'] vient de la page page-index, ou page-from-page-index ou accueil
+	$id = htmlspecialchars($_GET['id']);
+    $read = new Database;	// POO! $read = objet qui contient toute la table des pages
+	$page_en_cours_de_lecture = $read->getOnePageById($id); // On veut une seule page par son id
 }
 
-//Title for the head
-$title = cleanPageName($page['title']); // function in model/page.php
-
-// include_once USER;
-
-if(isset($_SESSION['member']) && isset($level)) {
-	if($level > 2) {
+/** Permissions to display editions links in the view
+*   Edition link: include_once("view/".'__menu-edition.php');
+*/
+	if(isset($_SESSION['member']) && isset($member->level)) {
+	if($member->level > 2) {
 		$editor = False;
 	} else $editor = True;
 }

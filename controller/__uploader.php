@@ -7,8 +7,8 @@
 
 $message = new Message();// My first class self made ! 08/2017 MarcL.Harnist
 
-include_once('model/clean-accents.php'); // Get all pages
-include_once('model/clean-url.php'); // Get all pages
+// include_once('models/clean-accents.php'); // Get all pages
+// include_once('models/clean-url.php'); // Get all pages
 
 
 // On récupère l'adresse de la page d'origine
@@ -55,8 +55,8 @@ $extension = $message = $nomImage = $upload	 = '';
 /************************************************************
  * Creation du repertoire cible si inexistant
  ***********************************************************/
-if( !is_dir(IMG) ) {
-  if( !mkdir(IMG, 0755) ) {
+if( !is_dir('img')) {
+  if( !mkdir('img', 0755) ) {
     exit('Erreur : le répertoire cible ne peut-être créé ! Vérifiez que vous diposiez des droits suffisants pour le faire ou créez le manuellement !');
   }
 }
@@ -81,7 +81,7 @@ if(!empty($_POST))// si le post n'est pas vide on continue
 		  if($infosImg[2] >= 1 && $infosImg[2] <= 14){
 			// On verifie les dimensions et taille de l'image
 			// Constantes are defined in config file
-			if(($infosImg[0] <= WIDTH_MAX) && ($infosImg[1] <= HEIGHT_MAX) && (filesize($_FILES['fichier']['tmp_name']) <= MAX_SIZE)){
+			if(($infosImg[0] <= $website::WIDTH_MAX) && ($infosImg[1] <= $website::HEIGHT_MAX) && (filesize($_FILES['fichier']['tmp_name']) <= $website::MAX_SIZE)){
 			  // Parcours du tableau d'erreurs
 			  if(isset($_FILES['fichier']['error']) 
 				&& UPLOAD_ERR_OK === $_FILES['fichier']['error']){
@@ -90,11 +90,11 @@ if(!empty($_POST))// si le post n'est pas vide on continue
 					$nomImage = $_FILES['fichier']['name'];
 
 					// File name cleaning
-					$nomImage = cleanAccents($nomImage);// functions cleanAccents included above
-					$nomImage = cleanUrl($nomImage);
+					$nomImage = $page->cleanAccents($nomImage);// functions cleanAccents included above
+					$nomImage = $page->cleanUrl($nomImage);
 					
 				// Si c'est OK, on teste l'upload
-				if(move_uploaded_file($_FILES['fichier']['tmp_name'], IMG.$nomImage))
+				if(move_uploaded_file($_FILES['fichier']['tmp_name'], "img/".$nomImage))
 				{
 					$message = 'Upload réussi !';
 					$upload = True;
@@ -113,11 +113,11 @@ if(!empty($_POST))// si le post n'est pas vide on continue
 			else
 			{
 			  // Sinon erreur sur les dimensions et taille de l'image
-			  if($infosImg[0] <= WIDTH_MAX)
-				  $message .= 'L\'image est trop large: '.$infosImg[0]. ' pour une largeur maximale de '. WIDTH_MAX . ' définie dans le fichier config.';
-			  if($infosImg[1] <= HEIGHT_MAX)
-				  $message .= 'L\'image est trop haute: ' . $infosImg[1] . ' pour une hauteur maximale autorisée de: '. HEIGHT_MAX.' définie par la fichier config.';
-			  if(filesize($_FILES['fichier']['tmp_name']) <= MAX_SIZE)
+			  if($infosImg[0] <= $website::WIDTH_MAX)
+				  $message .= 'L\'image est trop large: '.$infosImg[0]. ' pour une largeur maximale de '. $website::WIDTH_MAX . ' définie dans le fichier config.';
+			  if($infosImg[1] <= $website::HEIGHT_MAX)
+				  $message .= 'L\'image est trop haute: ' . $infosImg[1] . ' pour une hauteur maximale autorisée de: '. $website::HEIGHT_MAX.' définie par la fichier config.';
+			  if(filesize($_FILES['fichier']['tmp_name']) <= $website::MAX_SIZE)
 				  $message .= 'L\'image a une taille trop grande: ' . $_FILES['fichier']['tmp_name'];
 				  
 			}
@@ -129,7 +129,6 @@ if(!empty($_POST))// si le post n'est pas vide on continue
 		  }
 		 }else{
 			  $message = 'Erreur dans les dimensions de l\'image !';
-			 
 		 }
     }
     else

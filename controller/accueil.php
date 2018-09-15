@@ -1,22 +1,21 @@
 <?php
 
-//  15/09/2017 by Marc Harnist
+/**          HOMEPAGE - ACCUEIL
+*    
+*    15/09/2017 by Marc Harnist.
+*    19/07/2018 PHP to OOP: object "$read" = array() 
+*    which content all pages from "pages" mysql/table
+*/
 
-// On demande la dernière page 
-include_once('model/get-pages-by-categories.php');
-include_once('model/clean-url.php'); // On demande les 1000 derniers pages (modèle)
 
-$pages = getPagesByCategories("news","accueil");// news for home page 'accueil' order by desc
+/** New object "read" created now which content all pages
+*   from mysql/table "pages"
+*/
+$read = new Database;
 
-// On effectue du traitement sur les données (contrôleur)
-// Ici, on doit surtout sécuriser l'affichage
-foreach($pages as $cle => $page) {
-    // $pages[$cle]['date'] = nl2br(htmlspecialchars($page['date']));
-    $page['title'] = $page['title'];
-    $page['text'] = nl2br($page['text']);
-	$texte_entier = $page['text'];
-	$page['text'] = substr($page['text'], 0, 350); // first caracters only
-	$link = False; if($texte_entier != $page['text']) $link = true;
-    $page['date'] = date(('d/m/Y'),($page['date']));
-	$page['url'] = cleanUrl($page['title']);// function in model/clean-url.php
-}
+/** Method which list all existant categories of "pages"
+*   Only categorie "news" is wanted
+*/
+$categories = $read->list_categories(); 
+$page_en_cours_de_lecture = $read->getPagesByCategories("news", "accueil", 10000000);
+    //Paratmètres: catégorie (ici "news", page (ici "accueil"), nombres de caractères pour l'extrait (ici 10 000 000 = tout)
