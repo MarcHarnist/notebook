@@ -1,5 +1,6 @@
+<!-- Bootstrap's carousel -->
 <div class="carousel-item">
-  <img src="<?=IMG_URL;?>avec-les-francas.png" alt="kid&cid-village">
+  <img src="<?=$website->img_url;?>avec-les-francas.png" alt="kid&cid-village">
   <div class="carousel-caption d-none d-md-block">
     <h5>Kid&</h5>
     <p>collaboration avec l'association d'éducation populaire les francas pour le festival des droits des enfants kid&cid-village</p>
@@ -15,7 +16,7 @@
   </ol>
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img class="d-block w-100" src="<?=IMG_URL;?>avec-les-francas.png" alt="First slide">
+      <img class="d-block w-100" src="<?=$website->img_url;?>avec-les-francas.png" alt="First slide">
     </div>
     <div class="carousel-item">
       <img class="d-block w-100" src="..." alt="Second slide">

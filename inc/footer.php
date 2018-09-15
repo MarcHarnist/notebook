@@ -1,30 +1,21 @@
-		</div class="container">
+		</div><!-- Close </div class="container"> -->
+
 		
 		<div class="container p-0">
 			<footer class="p-3"> <!-- Footer (pied de page) -->
 				<h6>
 					<a 	class="mr-2" 
 						title = "Mensions légales du site web"
-						href="<?=PAGE_URL?>page-from-pages-index&id=81&titre=mentions-legales">
+						href="<?= $website->page_url?>page-from-pages-index&id=81&titre=mentions-legales">
 						<i class="fas fa-gavel fa-2x"></i>
 					</a>
-					<a 	class="mr-2"
-						title = "Valide W3C ?"
-						href="http://validator.w3.org/check/referer">
-						<i class="fab fa-html5 fa-2x"></i>
-					</a>
 					<a 	class="mr-2" 
-						title = "Valide W3C ?"
-						href="http://jigsaw.w3.org/css-validator/check/referer">
-						<i class="fab fa-css3-alt fa-2x"></i>
-					</a>
-					<a 	class="mr-2" 
-						title = "Mes formations"
+						title = "Formation La Rochelle 2018 et travaux pratiques..."
 						href="../formation/">
 						<i class="fab fa-earlybirds fa-2x"></i>
 					</a>
 				
-					<span class = "text-secondary pl-5">Light CMS par <a href="http://marcharnist.fr" title="L'auteur">Marc Laurent Harnist</a> développeur, intégrateur et référenceur web.</span>
+					<span class = "text-secondary pl-5">CMS <a href="../light">"Light"</a> créé par <a href="http://marcharnist.fr" title="L'auteur"><?=$website::WEBMASTER;?></a> développeur Web junior.</span>
 				</h6>
 					<!-- retour à la ligne pour belle présentation online -->
 			</footer> <!-- close Footer -->
@@ -34,6 +25,13 @@
 		<script src="./js/jquery-3.2.1.slim.min.js"></script>
 		<script src="./js/popper.min.js"></script>
 		<script src="./js/bootstrap.min.js"></script>
+		
+		<!-- Code javascript de Marc L. Harnist du 11/04/2018 Source: OpenClassRoom -->
+		<script src="js/_js-marc-laurent-harnist.js"></script>
+		
+		<!-- Hello dear visitor! - bb-code créé par M.L. Harnist le 8/04/2018 Source: OpenClassRoom -->
+		<script src="js/bb-code.js"></script>
+
 	</body>
 </html>
 
@@ -45,5 +43,5 @@
 			$member = $member->name();
 			$_SESSION['member'] = $member;
 		}
-	}
+	}//close if(isset($member))
 ?>
