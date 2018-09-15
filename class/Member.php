@@ -5,10 +5,12 @@ class Member {
           $_name,
           $_password,
 		  $_level;
+  public  $level;
 
   public function __construct(array $donnees)
   {
     $this->hydrate($donnees);
+	$this->level = $this->_level;
   }
   
   public function hydrate(array $donnees)
@@ -36,21 +38,7 @@ class Member {
     }
   }
   
-  public function lostLife($life)
-  {
-    $this->_life -= 1;
-    
-    // Si on a 0 vie on a perdu.
-    if ($this->_life == 0)
-    {
-      return self::JOUEUR_PERDU;
-    }
-  }
-  
-  
   // GETTERS //
-  
-
   public function id()
   {
     return $this->_id;
