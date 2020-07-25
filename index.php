@@ -13,13 +13,16 @@
 session_start(); // Pour l'espace membre
 ini_set('display_errors',1); // Affichage des erreurs chez OVH
 
-/********************************** MODELES ********************************
-*
-*   Uploader des classes
-*/  function upload($classname){
-	  require 'classes/' . $classname.'.php';
-    }
-spl_autoload_register('upload');
+/********************************** MODELES ********************************/
+$models   = ["config" => 'models/config-uploader.php', "classes" => 'models/class-uploader.php'];
+$messages = [ "configImport"  => '<p>'.$models["config"].' non trouvé.</p>', //config file not found
+              "classesUpload" => '<p>'.$models["classes"].' non trouvé</p>'];//classes uploader not found
+//Import all config files
+file_exists($models["config"])? require($models["config"]):exit($messages["configImport"]);
+
+//Upload all classes
+file_exists($models["classes"])? require($models["classes"]):exit($messages["classesUpload"]);
+
 $website = new Website;        //Fichier config du site web...................
 $page    = new Page;           //Nouvel objet "$page" ($_Get['page']).........
 $member  = $website::session();//$_Session['member']->object $member..........
